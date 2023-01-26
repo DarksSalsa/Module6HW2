@@ -25,7 +25,7 @@ public class CatalogTypeController : ControllerBase
     [ProducesResponseType(typeof(UniversalAddResponse<int?>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Add(CreateTypeRequest request)
     {
-        var result = await _catalogTypeService.Add(request.Type);
+        var result = await _catalogTypeService.AddAsync(request.Type);
         return Ok(new UniversalAddResponse<int?>() { Id = result });
     }
 
@@ -33,7 +33,7 @@ public class CatalogTypeController : ControllerBase
     [ProducesResponseType(typeof(UniversalDeleteResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Delete(UniversalDeleteRequest request)
     {
-        var result = await _catalogTypeService.Delete(request.Id);
+        var result = await _catalogTypeService.DeleteAsync(request.Id);
         if (result == null)
         {
             return BadRequest(new ErrorResponse() { ErrorMessage = "Undefined Id" });
@@ -46,7 +46,7 @@ public class CatalogTypeController : ControllerBase
     [ProducesResponseType(typeof(TypeUpdateResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Update(UniversalUpdateRequest request)
     {
-        var result = await _catalogTypeService.Update(request.Id, request.Property, request.Value);
+        var result = await _catalogTypeService.UpdateAsync(request.Id, request.Property, request.Value);
         if (result == null)
         {
             return BadRequest(new ErrorResponse() { ErrorMessage = "Undefined Id or Property" });

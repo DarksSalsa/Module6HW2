@@ -26,7 +26,7 @@ public class CatalogItemController : ControllerBase
     [ProducesResponseType(typeof(UniversalAddResponse<int?>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Add(CreateProductRequest request)
     {
-        var result = await _catalogItemService.Add(request.Name, request.Description, request.Price, request.AvailableStock, request.CatalogBrandId, request.CatalogTypeId, request.PictureFileName);
+        var result = await _catalogItemService.AddAsync(request.Name, request.Description, request.Price, request.AvailableStock, request.CatalogBrandId, request.CatalogTypeId, request.PictureFileName);
         return Ok(new UniversalAddResponse<int?>() { Id = result });
     }
 
@@ -34,7 +34,7 @@ public class CatalogItemController : ControllerBase
     [ProducesResponseType(typeof(UniversalDeleteResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Delete(UniversalDeleteRequest request)
     {
-        var result = await _catalogItemService.Delete(request.Id);
+        var result = await _catalogItemService.DeleteAsync(request.Id);
         if (result == null)
         {
             return BadRequest(new ErrorResponse() { ErrorMessage = "Undefined Id" });
@@ -47,7 +47,7 @@ public class CatalogItemController : ControllerBase
     [ProducesResponseType(typeof(ItemUpdateResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Update(UniversalUpdateRequest request)
     {
-        var result = await _catalogItemService.Update(request.Id, request.Property, request.Value);
+        var result = await _catalogItemService.UpdateAsync(request.Id, request.Property, request.Value);
         if (result == null)
         {
             return BadRequest(new ErrorResponse() { ErrorMessage = "Undefined Id or Property" });

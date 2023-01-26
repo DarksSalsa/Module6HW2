@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Catalog.Host.Data;
 using Catalog.Host.Models.Dtos;
-using Catalog.Host.Repositories;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Services;
+using Infrastructure.Services.Interfaces;
 
 namespace Catalog.Host.Services
 {
@@ -23,21 +24,21 @@ namespace Catalog.Host.Services
             _mapper = mapper;
         }
 
-        public async Task<int?> Add(string brand)
+        public async Task<int?> AddAsync(string brand)
         {
-            return await ExecuteSafeAsync(async () => await _catalogBrandRepository.Add(brand));
+            return await ExecuteSafeAsync(async () => await _catalogBrandRepository.AddAsync(brand));
         }
 
-        public async Task<int?> Delete(int id)
+        public async Task<int?> DeleteAsync(int id)
         {
-            return await ExecuteSafeAsync(async () => await _catalogBrandRepository.Delete(id));
+            return await ExecuteSafeAsync(async () => await _catalogBrandRepository.DeleteAsync(id));
         }
 
-        public Task<CatalogBrandDto> Update(int id, string property, string value)
+        public Task<CatalogBrandDto> UpdateAsync(int id, string property, string value)
         {
             return ExecuteSafeAsync(async () =>
             {
-                var result = await _catalogBrandRepository.Update(id, property, value);
+                var result = await _catalogBrandRepository.UpdateAsync(id, property, value);
                 return _mapper.Map<CatalogBrandDto>(result);
             });
         }

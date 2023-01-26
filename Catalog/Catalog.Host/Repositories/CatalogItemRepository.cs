@@ -1,9 +1,8 @@
 using Catalog.Host.Data;
 using Catalog.Host.Data.Entities;
 using Catalog.Host.Repositories.Interfaces;
-using Catalog.Host.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Services.Interfaces;
 
 namespace Catalog.Host.Repositories;
 
@@ -36,7 +35,7 @@ public class CatalogItemRepository : ICatalogItemRepository
         return new PaginatedItems<CatalogItem>() { TotalCount = totalItems, Data = itemsOnPage };
     }
 
-    public async Task<int?> Add(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string pictureFileName)
+    public async Task<int?> AddAsync(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string pictureFileName)
     {
         var item = await _dbContext.AddAsync(new CatalogItem
         {
@@ -59,7 +58,7 @@ public class CatalogItemRepository : ICatalogItemRepository
         return result;
     }
 
-    public async Task<int?> Delete(int id)
+    public async Task<int?> DeleteAsync(int id)
     {
         var element = await GetByIdAsync(id);
         if (element != null)
@@ -72,7 +71,7 @@ public class CatalogItemRepository : ICatalogItemRepository
         return null;
     }
 
-    public async Task<CatalogItem?> Update(int id, string property, string value)
+    public async Task<CatalogItem?> UpdateAsync(int id, string property, string value)
     {
         var result = await GetByIdAsync(id);
 

@@ -4,6 +4,8 @@ using Catalog.Host.Repositories;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Services.Interfaces;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var configuration = GetConfiguration();

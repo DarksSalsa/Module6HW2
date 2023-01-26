@@ -4,7 +4,7 @@ namespace Catalog.Host.Services.Interfaces;
 
 public interface ICatalogItemService
 {
-    Task<int?> Add(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string pictureFileName);
-    Task<int?> Delete(int id);
-    Task<CatalogItemDto> Update(int id, string property, string value);
+    Task<int?> AddAsync(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string pictureFileName);
+    Task<int?> DeleteAsync(int id);
+    Task<CatalogItemDto> UpdateAsync(int id, string property, string value);
 }

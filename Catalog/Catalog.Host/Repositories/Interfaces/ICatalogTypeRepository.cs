@@ -5,8 +5,8 @@ namespace Catalog.Host.Repositories.Interfaces
     public interface ICatalogTypeRepository
     {
         Task<CatalogType?> GetByIdAsync(int id);
-        Task<int?> Add(string type);
-        Task<int?> Delete(int id);
-        Task<CatalogType?> Update(int id, string property, string value);
+        Task<int?> AddAsync(string type);
+        Task<int?> DeleteAsync(int id);
+        Task<CatalogType?> UpdateAsync(int id, string property, string value);
     }
 }

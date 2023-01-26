@@ -1,8 +1,8 @@
 ﻿using Catalog.Host.Data;
 using Catalog.Host.Data.Entities;
 using Catalog.Host.Repositories.Interfaces;
-using Catalog.Host.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Services.Interfaces;
 
 namespace Catalog.Host.Repositories
 {
@@ -19,7 +19,7 @@ namespace Catalog.Host.Repositories
             _logger = logger;
         }
 
-        public async Task<int?> Add(string brand)
+        public async Task<int?> AddAsync(string brand)
         {
             var result = await _dbContext.CatalogBrands.AddAsync(new CatalogBrand() { Brand = brand });
             await _dbContext.SaveChangesAsync();
@@ -32,7 +32,7 @@ namespace Catalog.Host.Repositories
             return result;
         }
 
-        public async Task<int?> Delete(int id)
+        public async Task<int?> DeleteAsync(int id)
         {
             var element = await GetByIdAsync(id);
             if (element != null)
@@ -45,7 +45,7 @@ namespace Catalog.Host.Repositories
             return null;
         }
 
-        public async Task<CatalogBrand?> Update(int id, string property, string value)
+        public async Task<CatalogBrand?> UpdateAsync(int id, string property, string value)
         {
             var result = await GetByIdAsync(id);
 

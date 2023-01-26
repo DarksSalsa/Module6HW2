@@ -3,7 +3,8 @@ using Catalog.Host.Data;
 using Catalog.Host.Models.Dtos;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
-using Catalog.Host.Data.Entities;
+using Infrastructure.Services;
+using Infrastructure.Services.Interfaces;
 
 namespace Catalog.Host.Services;
 
@@ -23,21 +24,25 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
         _mapper = mapper;
     }
 
-    public Task<int?> Add(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string pictureFileName)
+    public Task<int?> AddAsync(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string pictureFileName)
     {
-        return ExecuteSafeAsync(() => _catalogItemRepository.Add(name, description, price, availableStock, catalogBrandId, catalogTypeId, pictureFileName));
+        return ExecuteSafeAsync(async () => await _catalogItemRepository.AddAsync(name, description, price, availableStock, catalogBrandId, catalogTypeId, pictureFileName));
     }
 
-    public Task<int?> Delete(int id)
-    {
-        return ExecuteSafeAsync(() => _catalogItemRepository.Delete(id));
-    }
-
-    public Task<CatalogItemDto> Update(int id, string property, string value)
+    public Task<int?> DeleteAsync(int id)
     {
         return ExecuteSafeAsync(async () =>
         {
-            var result = await _catalogItemRepository.Update(id, property, value);
+            var result = await _catalogItemRepository.DeleteAsync(id);
+            return result;
+        });
+    }
+
+    public Task<CatalogItemDto> UpdateAsync(int id, string property, string value)
+    {
+        return ExecuteSafeAsync(async () =>
+        {
+            var result = await _catalogItemRepository.UpdateAsync(id, property, value);
             return _mapper.Map<CatalogItemDto>(result);
         });
     }

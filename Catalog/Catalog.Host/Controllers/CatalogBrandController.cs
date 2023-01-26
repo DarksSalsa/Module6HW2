@@ -25,7 +25,7 @@ public class CatalogBrandController : ControllerBase
     [ProducesResponseType(typeof(UniversalAddResponse<int?>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Add(CreateBrandRequest request)
     {
-        var result = await _catalogBrandService.Add(request.Brand);
+        var result = await _catalogBrandService.AddAsync(request.Brand);
         return Ok(new UniversalAddResponse<int?>() { Id = result });
     }
 
@@ -33,7 +33,7 @@ public class CatalogBrandController : ControllerBase
     [ProducesResponseType(typeof(UniversalDeleteResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Delete(UniversalDeleteRequest request)
     {
-        var result = await _catalogBrandService.Delete(request.Id);
+        var result = await _catalogBrandService.DeleteAsync(request.Id);
         if (result == null)
         {
             return BadRequest(new ErrorResponse() { ErrorMessage = "Undefined Id" });
@@ -46,7 +46,7 @@ public class CatalogBrandController : ControllerBase
     [ProducesResponseType(typeof(BrandUpdateResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Update(UniversalUpdateRequest request)
     {
-        var result = await _catalogBrandService.Update(request.Id, request.Property, request.Value);
+        var result = await _catalogBrandService.UpdateAsync(request.Id, request.Property, request.Value);
         if (result == null)
         {
             return BadRequest(new ErrorResponse() { ErrorMessage = "Undefined Id or Property" });
